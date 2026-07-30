@@ -1,9 +1,6 @@
-# UAV Pose Estimation
 
-## Overview
-This project investigates a map-aided UAV localization framework based on 3D–2D registration for absolute pose estimation. UAV images are matched against orthomosaic map patches to establish correspondences, while elevation information is obtained from a Digital Surface Model (DSM) to form 3D points. The system estimates UAV camera pose by matching aerial images with a georeferenced map and solving 2D–3D correspondences.
+# Technical Pipeline & Mathematical Formulation
 
-## Technical Pipeline & Mathematical Formulation
 The registration and estimation workflow proceeds through a structured geometric sequence designed to interface directly with projected map coordinate systems:
 
 1. **Spatial Cropping & GSD Alignment:** The initial UAV geodetic telemetry (WGS84) is transformed into the ETRS89 / UTM 32N projected coordinate system (EPSG:25832). A map Region of Interest (ROI) is cropped from the global orthomosaic based on the Ground Sampling Distance (GSD) ratios, ensuring physical features share a uniform scale across both fields of view.
@@ -21,6 +18,9 @@ The registration and estimation workflow proceeds through a structured geometric
 4. **Pose Optimization & Camera Position Recovery:** The solver refines the initialized pose guess against the local 3D-2D points, producing an optimized camera transformation matrix $\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{refined}}$ and translation vector $\mathbf{t}$. The spatial global camera location vector $\mathbf{C}$ is subsequently recovered in absolute metrics using spatial frame inversion:
 
 $$\mathbf{C} = -\left(\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{refined}}\right)^\top \mathbf{t} + \mathbf{C}_{\text{init}}$$
+
+
+
 
 ### Evaluated Experimental Configurations
 The localization pipeline follows a common structure across all configurations, consisting of feature extraction, feature matching, image alignment, and pose estimation using a PnP solver. The evaluated setups differ in the choice of feature detector, matching strategy, and the use of rotation alignment derived from IMU data.
