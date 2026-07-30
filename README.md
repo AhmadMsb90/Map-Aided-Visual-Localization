@@ -15,7 +15,6 @@ The registration and estimation workflow proceeds through a structured geometric
     * **Prior-based Initialization (IMU):** The orientation matrix $\mathbf{R}_{\text{imu}}$ derived from onboard telemetry is treated as directly absolute relative to the global map grid coordinate system ($\mathbf{R}_{\text{map} \rightarrow \text{body}}$). The seed prior is formulated by chaining this attitude state with the constant structural camera calibration displacement profile ($\mathbf{R}_{\text{boresight}}$):
     $$\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{prior}} = \mathbf{R}_{\text{boresight}} \cdot \mathbf{R}_{\text{imu}}$$
 
-
 4. **Pose Optimization & Camera Position Recovery:** The solver refines the initialized pose guess against the local 3D-2D points, producing an optimized camera transformation matrix $\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{refined}}$ and translation vector $\mathbf{t}$. The spatial global camera location vector $\mathbf{C}$ is subsequently recovered in absolute metrics using spatial frame inversion:
 
 $$\mathbf{C} = -\left(\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{refined}}\right)^\top \mathbf{t} + \mathbf{C}_{\text{init}}$$
