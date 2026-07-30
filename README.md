@@ -10,12 +10,12 @@ The registration and estimation workflow proceeds through a structured geometric
 3. **PnP Solver Initializations:** Depending on the configured strategy, the Perspective-n-Point (PnP) solver is seeded with one of two distinct canonical frames to initialize iterative optimization:
 
 - **Anchor-based Initialization:**  
-  *A deterministic heuristic rotation matrix* $\mathbf{R}_{\text{anchor}}$ *is utilized to establish a stable down-looking nadir baseline configuration by swapping the horizontal coordinate components and flipping the vertical reference vector:*  
-  $\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{init}} = \mathbf{R}_{\text{anchor}}$
+  <em>A deterministic heuristic rotation matrix</em> <code>R<sub>anchor</sub></code> <em>is utilized to establish a stable down-looking nadir baseline configuration by swapping the horizontal coordinate components and flipping the vertical reference vector:</em>  
+  <code>R<sub>map→cam</sub><sup>init</sup> = R<sub>anchor</sub></code>
 
 - **Prior-based Initialization (IMU):**  
-  *The orientation matrix* $\mathbf{R}_{\text{imu}}$ *derived from onboard telemetry is treated as directly absolute relative to the global map grid coordinate system* ($\mathbf{R}_{\text{map} \rightarrow \text{body}}$)*. The seed prior is formulated by chaining this attitude state with the constant structural camera calibration displacement profile* ($\mathbf{R}_{\text{boresight}}$)*:*  
-  $\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{prior}} = \mathbf{R}_{\text{boresight}} \cdot \mathbf{R}_{\text{imu}}$
+  <em>The orientation matrix</em> <code>R<sub>imu</sub></code> <em>derived from onboard telemetry is treated as directly absolute relative to the global map grid coordinate system</em> (<code>R<sub>map→body</sub></code>)<em>. The seed prior is formulated by chaining this attitude state with the constant structural camera calibration displacement profile</em> (<code>R<sub>boresight</sub></code>)<em>:</em>  
+  <code>R<sub>map→cam</sub><sup>prior</sup> = R<sub>boresight</sub> · R<sub>imu</sub></code>
 
 
 
