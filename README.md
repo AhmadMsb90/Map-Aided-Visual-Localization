@@ -9,13 +9,11 @@ The registration and estimation workflow proceeds through a structured geometric
 
 3. **PnP Solver Initializations:** Depending on the configured strategy, the Perspective-n-Point (PnP) solver is seeded with one of two distinct canonical frames to initialize iterative optimization:
 
-    * **Anchor-based Initialization:** A deterministic heuristic rotation matrix **R**_anchor is utilized to establish a stable down-looking nadir baseline configuration by swapping the horizontal coordinate components and flipping the vertical reference vector:
-    
-      **R**_{map → cam}^init = **R**_anchor
+    * **Anchor-based Initialization:** A deterministic heuristic rotation matrix $\mathbf{R}_{\text{anchor}}$ is utilized to establish a stable down-looking nadir baseline configuration by swapping the horizontal coordinate components and flipping the vertical reference vector:
+    $$\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{init}} = \mathbf{R}_{\text{anchor}}$$
 
-    * **Prior-based Initialization (IMU):** The orientation matrix **R**_imu derived from onboard telemetry is treated as directly absolute relative to the global map grid coordinate system (**R**_{map → body}). The seed prior is formulated by chaining this attitude state with the constant structural camera calibration displacement profile (**R**_boresight):
-    
-      **R**_{map → cam}^prior = **R**_boresight · **R**_imu
+    * **Prior-based Initialization (IMU):** The orientation matrix $\mathbf{R}_{\text{imu}}$ derived from onboard telemetry is treated as directly absolute relative to the global map grid coordinate system ($\mathbf{R}_{\text{map} \rightarrow \text{body}}$). The seed prior is formulated by chaining this attitude state with the constant structural camera calibration displacement profile ($\mathbf{R}_{\text{boresight}}$):
+    $$\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{prior}} = \mathbf{R}_{\text{boresight}} \cdot \mathbf{R}_{\text{imu}}$$
 
 
 4. **Pose Optimization & Camera Position Recovery:** The solver refines the initialized pose guess against the local 3D-2D points, producing an optimized camera transformation matrix $\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{refined}}$ and translation vector $\mathbf{t}$. The spatial global camera location vector $\mathbf{C}$ is subsequently recovered in absolute metrics using spatial frame inversion:
