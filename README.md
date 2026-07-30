@@ -9,13 +9,14 @@ The registration and estimation workflow proceeds through a structured geometric
 
 3. **PnP Solver Initializations:** Depending on the configured strategy, the Perspective-n-Point (PnP) solver is seeded with one of two distinct canonical frames to initialize iterative optimization:
 
-* **Anchor-based Initialization:**  
-  A deterministic heuristic rotation matrix $\mathbf{R}_{\text{anchor}}$ is utilized to establish a stable down-looking nadir baseline configuration by swapping the horizontal coordinate components and flipping the vertical reference vector:  
+- **Anchor-based Initialization:**  
+  *A deterministic heuristic rotation matrix* $\mathbf{R}_{\text{anchor}}$ *is utilized to establish a stable down-looking nadir baseline configuration by swapping the horizontal coordinate components and flipping the vertical reference vector:*  
   $\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{init}} = \mathbf{R}_{\text{anchor}}$
 
-* **Prior-based Initialization (IMU):**  
-  The orientation matrix $\mathbf{R}_{\text{imu}}$ derived from onboard telemetry is treated as directly absolute relative to the global map grid coordinate system ($\mathbf{R}_{\text{map} \rightarrow \text{body}}$). The seed prior is formulated by chaining this attitude state with the constant structural camera calibration displacement profile ($\mathbf{R}_{\text{boresight}}$):  
+- **Prior-based Initialization (IMU):**  
+  *The orientation matrix* $\mathbf{R}_{\text{imu}}$ *derived from onboard telemetry is treated as directly absolute relative to the global map grid coordinate system* ($\mathbf{R}_{\text{map} \rightarrow \text{body}}$)*. The seed prior is formulated by chaining this attitude state with the constant structural camera calibration displacement profile* ($\mathbf{R}_{\text{boresight}}$)*:*  
   $\mathbf{R}_{\text{map} \rightarrow \text{cam}}^{\text{prior}} = \mathbf{R}_{\text{boresight}} \cdot \mathbf{R}_{\text{imu}}$
+
 
 
 
